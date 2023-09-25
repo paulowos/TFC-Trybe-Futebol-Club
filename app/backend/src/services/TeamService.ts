@@ -8,6 +8,6 @@ export default class TeamService {
 
   async getAll(): Promise<ServiceResponse<ITeam[]>> {
     const body = await this.teamModel.getAll();
-    return { status: 'SUCCESS', body };
+    return { status: 'OK', body };
   }
 }

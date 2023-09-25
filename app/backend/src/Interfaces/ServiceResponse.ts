@@ -1,4 +1,4 @@
-type Status = 'SUCCESS' | 'INTERNAL_ERROR';
+type Status = 'OK' | 'INTERNAL_ERROR';
 type Message = { message: string };
 
 type ServiceResponse<T> = {
