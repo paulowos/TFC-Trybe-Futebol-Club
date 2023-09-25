@@ -23,7 +23,7 @@ describe('Teams', () => {
   it('GET /teams should return a list of teams', async function () {
     sinon.stub(TeamSequelizeModel, 'findAll').resolves(teams as any);
 
-    const response = await chai.request(app).get('/teams');
+    response = await chai.request(app).get('/teams');
 
     expect(response.status).to.equal(200);
     expect(response.body).to.deep.equal(teams);
