@@ -17,4 +17,6 @@ const teams = [
   { id: 16, team_name: 'São Paulo' },
 ];
 
-export { teams };
+const team = teams[0];
+
+export { teams, team };
