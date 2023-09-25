@@ -10,4 +10,15 @@ export default class TeamService {
     const body = await this.teamModel.getAll();
     return { status: 'OK', body };
   }
+
+  async getById(id: number): Promise<ServiceResponse<ITeam>> {
+    const body = await this.teamModel.getById(id);
+    if (!body) {
+      return {
+        status: 'NOT_FOUND',
+        body: { message: `Team with id ${id} not found` },
+      };
+    }
+    return { status: 'OK', body };
+  }
 }
