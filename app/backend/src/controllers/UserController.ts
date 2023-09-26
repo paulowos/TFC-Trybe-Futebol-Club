@@ -10,4 +10,9 @@ export default class UserController {
     const { status, body } = await this.userService.login(email, password);
     res.status(statusHttp[status]).json(body);
   }
+
+  static async getRole(req: Request, res: Response) {
+    const { role } = req.body.user;
+    res.status(statusHttp.OK).json({ role });
+  }
 }
