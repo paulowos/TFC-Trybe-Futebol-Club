@@ -9,6 +9,8 @@ const { expect } = chai;
 import UserSequelizeModel from '../database/models/UserSequelizeModel';
 import {
   userFromDB,
+  userInvalidEmail,
+  userInvalidPassword,
   userRequest,
   userRequestNoEmail,
   userRequestNoPassword,
@@ -43,7 +45,9 @@ describe('User', function () {
     response = await chai.request(app).post('/login').send(userRequest);
 
     expect(response.status).to.equal(401);
-    expect(response.body).to.deep.equal({ message: 'Invalid password' });
+    expect(response.body).to.deep.equal({
+      message: 'Invalid email or password',
+    });
   });
 
   it('POST /login with wrong email', async function () {
@@ -52,7 +56,9 @@ describe('User', function () {
     response = await chai.request(app).post('/login').send(userRequest);
 
     expect(response.status).to.equal(401);
-    expect(response.body).to.deep.equal({ message: 'Invalid email' });
+    expect(response.body).to.deep.equal({
+      message: 'Invalid email or password',
+    });
   });
 
   it('POST /login with without password', async function () {
@@ -73,6 +79,24 @@ describe('User', function () {
     expect(response.status).to.equal(400);
     expect(response.body).to.deep.equal({
       message: 'All fields must be filled',
+    });
+  });
+
+  it('POST /login with invalid password', async function () {
+    response = await chai.request(app).post('/login').send(userInvalidPassword);
+
+    expect(response.status).to.equal(401);
+    expect(response.body).to.deep.equal({
+      message: 'Invalid email or password',
+    });
+  });
+
+  it('POST /login with without email', async function () {
+    response = await chai.request(app).post('/login').send(userInvalidEmail);
+
+    expect(response.status).to.equal(401);
+    expect(response.body).to.deep.equal({
+      message: 'Invalid email or password',
     });
   });
 });

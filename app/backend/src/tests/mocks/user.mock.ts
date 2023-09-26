@@ -19,4 +19,14 @@ const userRequestNoEmail = {
   password: 'secret_admin',
 };
 
-export { userFromDB, userRequest, userRequestNoPassword, userRequestNoEmail };
+const userInvalidPassword = { ...userRequest, password: '123' };
+const userInvalidEmail = { ...userRequest, email: 'invalidEmail' };
+
+export {
+  userFromDB,
+  userRequest,
+  userRequestNoPassword,
+  userRequestNoEmail,
+  userInvalidPassword,
+  userInvalidEmail,
+};
