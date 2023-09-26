@@ -20,14 +20,14 @@ import * as bcrypt from 'bcryptjs';
 
 chai.use(chaiHttp);
 
-describe('User', function () {
+describe('POST /login', function () {
   let response: Response;
 
   beforeEach(function () {
     sinon.restore();
   });
 
-  it('POST /login when successful', async function () {
+  it('when successful', async function () {
     sinon.stub(UserSequelizeModel, 'findOne').resolves(userFromDB as any);
     sinon.stub(jwt, 'sign').callsFake(() => 'testToken');
     sinon.stub(bcrypt, 'compareSync').callsFake(() => true);
@@ -38,7 +38,7 @@ describe('User', function () {
     expect(response.body).to.deep.equal({ token: 'testToken' });
   });
 
-  it('POST /login with wrong password', async function () {
+  it('with wrong password', async function () {
     sinon.stub(UserSequelizeModel, 'findOne').resolves(userFromDB as any);
     sinon.stub(bcrypt, 'compareSync').callsFake(() => false);
 
@@ -50,7 +50,7 @@ describe('User', function () {
     });
   });
 
-  it('POST /login with wrong email', async function () {
+  it('with wrong email', async function () {
     sinon.stub(UserSequelizeModel, 'findOne').resolves(null);
 
     response = await chai.request(app).post('/login').send(userRequest);
@@ -61,7 +61,7 @@ describe('User', function () {
     });
   });
 
-  it('POST /login with without password', async function () {
+  it('with without password', async function () {
     response = await chai
       .request(app)
       .post('/login')
@@ -73,7 +73,7 @@ describe('User', function () {
     });
   });
 
-  it('POST /login with without email', async function () {
+  it('with without email', async function () {
     response = await chai.request(app).post('/login').send(userRequestNoEmail);
 
     expect(response.status).to.equal(400);
@@ -82,7 +82,7 @@ describe('User', function () {
     });
   });
 
-  it('POST /login with invalid password', async function () {
+  it('with invalid password', async function () {
     response = await chai.request(app).post('/login').send(userInvalidPassword);
 
     expect(response.status).to.equal(401);
@@ -91,7 +91,7 @@ describe('User', function () {
     });
   });
 
-  it('POST /login with without email', async function () {
+  it('with without email', async function () {
     response = await chai.request(app).post('/login').send(userInvalidEmail);
 
     expect(response.status).to.equal(401);

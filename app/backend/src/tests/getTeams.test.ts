@@ -13,14 +13,14 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Teams', () => {
+describe('GET /teams', () => {
   let response: Response;
 
   beforeEach(function () {
     sinon.restore();
   });
 
-  it('GET /teams should return a list of teams', async function () {
+  it('should return a list of teams', async function () {
     sinon.stub(TeamSequelizeModel, 'findAll').resolves(teams as any);
 
     response = await chai.request(app).get('/teams');
@@ -29,7 +29,7 @@ describe('Teams', () => {
     expect(response.body).to.deep.equal(teams);
   });
 
-  it('GET /teams/:id return a team when successful', async function () {
+  it('/:id return a team when successful', async function () {
     sinon.stub(TeamSequelizeModel, 'findByPk').resolves(team as any);
 
     response = await chai.request(app).get('/teams/1');
@@ -38,7 +38,7 @@ describe('Teams', () => {
     expect(response.body).to.deep.equal(team);
   });
 
-  it('GET /teams/:id return a team when not found', async function () {
+  it('/:id return a team when not found', async function () {
     sinon.stub(TeamSequelizeModel, 'findByPk').resolves(null);
 
     response = await chai.request(app).get('/teams/1');
