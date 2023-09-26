@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import statusHttp from '../utils/statusHttp';
 import JWT from '../utils/JWT';
+import UserService from '../services/UserService';
 
 export default class AuthMiddleware {
+  private static userService = new UserService();
   public static verifyHeader(req: Request, res: Response, next: NextFunction) {
     if (!req.headers.authorization) {
       return res
@@ -15,11 +17,17 @@ export default class AuthMiddleware {
     next();
   }
 
-  public static validateToken(req: Request, res: Response, next: NextFunction) {
+  public static async validateToken(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     const token = req.headers.authorization as string;
     try {
       const payload = JWT.validate(token);
-      req.body.user = payload;
+      const user = await AuthMiddleware.userService.getById(payload.id);
+      if (user.status !== 'OK') throw new Error();
+      req.body.user = user.body;
       return next();
     } catch (_e) {
       return res
