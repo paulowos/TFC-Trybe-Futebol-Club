@@ -21,4 +21,10 @@ export default class MatchController {
     const { status, body } = serviceResponse;
     res.status(statusHttp[status]).json(body);
   }
+
+  async finishMatch(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const { status, body } = await this.matchService.finishMatch(id);
+    res.status(statusHttp[status]).json(body);
+  }
 }
