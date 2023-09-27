@@ -10,4 +10,11 @@ export default class MatchService {
     const body = await this.matchModel.getAll();
     return { status: 'OK', body };
   }
+
+  async getAllByProgress(
+    progress: boolean,
+  ): Promise<ServiceResponse<IMatch[]>> {
+    const body = await this.matchModel.getAllByProgress(progress);
+    return { status: 'OK', body };
+  }
 }
