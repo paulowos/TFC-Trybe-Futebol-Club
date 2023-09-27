@@ -21,10 +21,24 @@ describe('PATCH /matches', function () {
   let response: Response;
   beforeEach(function () {
     sinon.restore();
+    sinon.stub(jwt, 'verify').callsFake(() => ({ id: 1, role: 'admin' }));
   });
+
+  it('/:id should update goals', async function () {
+    sinon.stub(MatchSequelizeModel, 'update').resolves();
+
+    response = await chai
+      .request(app)
+      .patch('/matches/41')
+      .set('authorization', 'token')
+      .send({ homeTeamGoals: 3, awayTeamGoals: 0 });
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal({ message: 'Goals updated' });
+  });
+
   it('/:id/finish when successful', async function () {
     sinon.stub(MatchSequelizeModel, 'update').resolves();
-    sinon.stub(jwt, 'verify').callsFake(() => ({ id: 1, role: 'admin' }));
 
     response = await chai
       .request(app)
