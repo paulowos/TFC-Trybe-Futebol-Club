@@ -4,6 +4,9 @@ import * as sinon from 'sinon';
 import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
 import { app } from '../app';
+
+chai.use(chaiHttp);
+
 const { expect } = chai;
 
 import UserSequelizeModel from '../database/models/UserSequelizeModel';
