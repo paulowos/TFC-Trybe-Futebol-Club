@@ -1,6 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
 import IMatch from '../../Interfaces/Match';
-import TeamSequelizeModel from '../models/TeamSequelizeModel';
 export default {
   up(queryInterface: QueryInterface) {
     return queryInterface.createTable<Model<IMatch>>('matches', {
@@ -9,7 +8,9 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'home_team_id',
-        references: { model: TeamSequelizeModel, key: 'id' },
+        references: { model: 'teams', key: 'id' },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT',
       },
       homeTeamGoals: {
         type: DataTypes.INTEGER,
@@ -20,13 +21,14 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_id',
-        references: { model: TeamSequelizeModel, key: 'id' },
+        references: { model: 'teams', key: 'id' },
+        onUpdate: 'RESTRICT',
+        onDelete: 'RESTRICT',
       },
       awayTeamGoals: {
         type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_goals',
-        references: { model: TeamSequelizeModel, key: 'id' },
       },
       inProgress: {
         type: DataTypes.BOOLEAN,
