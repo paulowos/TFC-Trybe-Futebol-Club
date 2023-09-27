@@ -19,4 +19,6 @@ router.get('/', (req: Request, res: Response) =>
 router.patch('/:id/finish', tokenMiddlewares, (req: Request, res: Response) =>
   matchController.finishMatch(req, res));
 
+router.patch('/:id', tokenMiddlewares, (req: Request, res: Response) =>
+  matchController.updateGoals(req, res));
 export default router;
