@@ -22,4 +22,13 @@ export default class MatchService {
     await this.matchModel.finishMatch(id);
     return { status: 'OK', body: { message: 'Finished' } };
   }
+
+  async updateGoals(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<ServiceResponse<void>> {
+    await this.matchModel.updateGoals(id, homeTeamGoals, awayTeamGoals);
+    return { status: 'OK', body: { message: 'Goals updated' } };
+  }
 }
