@@ -5,8 +5,20 @@ import statusHttp from '../utils/statusHttp';
 export default class MatchController {
   constructor(private matchService = new MatchService()) {}
 
-  async getAll(_req: Request, res: Response) {
-    const { status, body } = await this.matchService.getAll();
-    return res.status(statusHttp[status]).json(body);
+  async getAll(req: Request, res: Response) {
+    const { inProgress } = req.query;
+    let serviceResponse;
+    switch (inProgress) {
+      case 'true':
+        serviceResponse = await this.matchService.getAllByProgress(true);
+        break;
+      case 'false':
+        serviceResponse = await this.matchService.getAllByProgress(false);
+        break;
+      default:
+        serviceResponse = await this.matchService.getAll();
+    }
+    const { status, body } = serviceResponse;
+    res.status(statusHttp[status]).json(body);
   }
 }
