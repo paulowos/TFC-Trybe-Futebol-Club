@@ -29,4 +29,7 @@ const matches = [
   },
 ];
 
-export { matches };
+const matchesInProgress = [matches[1]];
+const matchesNotInProgress = [matches[0]];
+
+export { matches, matchesInProgress, matchesNotInProgress };
