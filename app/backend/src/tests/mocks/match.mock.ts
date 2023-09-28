@@ -32,4 +32,34 @@ const matches = [
 const matchesInProgress = [matches[1]];
 const matchesNotInProgress = [matches[0]];
 
-export { matches, matchesInProgress, matchesNotInProgress };
+const matchFromDb = {
+  id: 1,
+  homeTeamId: 16,
+  homeTeamGoals: 2,
+  awayTeamId: 8,
+  awayTeamGoals: 2,
+  inProgress: true,
+};
+
+const matchRequest = {
+  homeTeamId: 16,
+  awayTeamId: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
+
+const matchRequestSameId = {
+  homeTeamId: 8,
+  awayTeamId: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
+
+export {
+  matches,
+  matchesInProgress,
+  matchesNotInProgress,
+  matchFromDb,
+  matchRequest,
+  matchRequestSameId,
+};
