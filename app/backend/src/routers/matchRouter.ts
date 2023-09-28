@@ -14,11 +14,13 @@ const router = Router();
 router.get('/', (req: Request, res: Response) =>
   matchController.getAll(req, res));
 
-// router.use(tokenMiddlewares);
-
 router.patch('/:id/finish', tokenMiddlewares, (req: Request, res: Response) =>
   matchController.finishMatch(req, res));
 
 router.patch('/:id', tokenMiddlewares, (req: Request, res: Response) =>
   matchController.updateGoals(req, res));
+
+router.post('/', tokenMiddlewares, (req: Request, res: Response) =>
+  matchController.create(req, res));
+
 export default router;
