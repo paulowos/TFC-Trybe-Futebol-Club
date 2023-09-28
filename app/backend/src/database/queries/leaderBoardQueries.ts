@@ -4,8 +4,8 @@ const getAllHomeQuery = `
           t.team_name as name,
           SUM(CASE
                 WHEN m.home_team_goals > m.away_team_goals THEN 3
-                WHEN m.home_team_goals = m.away_team_goals THEN 0
-                ELSE 1
+                WHEN m.home_team_goals = m.away_team_goals THEN 1
+                ELSE 0
               END) as totalPoints,
           COUNT(*) as totalGames,
           SUM( IF(m.home_team_goals > m.away_team_goals, 1, 0) ) as totalVictories,
@@ -19,7 +19,7 @@ const getAllHomeQuery = `
         ON t.id = m.home_team_id 
         WHERE m.in_progress=false
         GROUP BY t.team_name
-        ORDER BY totalVictories DESC, goalsBalance DESC, goalsFavor DESC)
+        ORDER BY totalPoints DESC, totalVictories DESC, goalsBalance DESC, goalsFavor DESC)
       SELECT 
         name,
         totalPoints,
