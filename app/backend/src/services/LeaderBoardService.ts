@@ -17,4 +17,9 @@ export default class LeaderBoardService {
     const body = await this.leaderBoardModel.getAllAway();
     return { status: 'OK', body };
   }
+
+  async getAllTotal(): Promise<ServiceResponse<ILeaderBoard[]>> {
+    const body = await this.leaderBoardModel.getAllTotal();
+    return { status: 'OK', body };
+  }
 }
