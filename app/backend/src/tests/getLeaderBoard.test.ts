@@ -8,6 +8,7 @@ import db from '../database/models';
 import {
   leaderBoardAwayFromDb,
   leaderBoardHomeFromDb,
+  leaderBoardTotalFromDb,
 } from './mocks/leaderBoard.mock';
 
 chai.use(chaiHttp);
@@ -18,6 +19,15 @@ describe('GET /leaderboard', function () {
   let response: Response;
   beforeEach(function () {
     sinon.restore();
+  });
+
+  it('returns teams leader board', async function () {
+    sinon.stub(db, 'query').resolves(leaderBoardTotalFromDb as any);
+
+    response = await chai.request(app).get('/leaderboard');
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal(leaderBoardTotalFromDb[0]);
   });
 
   it('/home, returns home teams leader board', async function () {
