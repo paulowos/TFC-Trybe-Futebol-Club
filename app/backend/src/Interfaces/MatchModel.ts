@@ -1,4 +1,4 @@
-import IMatch from './Match';
+import IMatch, { CreationIMatch } from './Match';
 
 export default interface IMatchModel {
   getAll(): Promise<IMatch[]>;
@@ -9,4 +9,6 @@ export default interface IMatchModel {
     homeTeamGoals: number,
     awayTeamGoals: number
   ): Promise<void>;
+
+  create(data: CreationIMatch): Promise<IMatch>;
 }
