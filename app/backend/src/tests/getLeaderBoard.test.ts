@@ -5,7 +5,10 @@ import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
 import { app } from '../app';
 import db from '../database/models';
-import { leaderBoardHomeFromDb } from './mocks/leaderBoard.mock';
+import {
+  leaderBoardAwayFromDb,
+  leaderBoardHomeFromDb,
+} from './mocks/leaderBoard.mock';
 
 chai.use(chaiHttp);
 
@@ -24,5 +27,14 @@ describe('GET /leaderboard', function () {
 
     expect(response.status).to.equal(200);
     expect(response.body).to.deep.equal(leaderBoardHomeFromDb[0]);
+  });
+
+  it('/away, returns away teams leader board', async function () {
+    sinon.stub(db, 'query').resolves(leaderBoardAwayFromDb as any);
+
+    response = await chai.request(app).get('/leaderboard/away');
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal(leaderBoardAwayFromDb[0]);
   });
 });
