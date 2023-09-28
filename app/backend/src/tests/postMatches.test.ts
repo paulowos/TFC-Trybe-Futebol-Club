@@ -16,6 +16,8 @@ import {
   matchRequest,
   matchRequestSameId,
 } from './mocks/match.mock';
+import { userFromDB } from './mocks/user.mock';
+import UserSequelizeModel from '../database/models/UserSequelizeModel';
 
 describe('POST /matches', function () {
   let response: Response;
@@ -23,6 +25,7 @@ describe('POST /matches', function () {
   beforeEach(function () {
     sinon.restore();
     sinon.stub(jwt, 'verify').callsFake(() => ({ id: 1, role: 'admin' }));
+    sinon.stub(UserSequelizeModel, 'findByPk').resolves(userFromDB as any);
   });
 
   it('when successful', async function () {

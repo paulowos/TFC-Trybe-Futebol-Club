@@ -6,22 +6,19 @@ import chaiHttp = require('chai-http');
 import { Response } from 'superagent';
 import { app } from '../app';
 import MatchSequelizeModel from '../database/models/MatchSequelizeModel';
+import UserSequelizeModel from '../database/models/UserSequelizeModel';
+import { userFromDB } from './mocks/user.mock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
-
-// import {
-//   matches,
-//   matchesInProgress,
-//   matchesNotInProgress,
-// } from './mocks/match.mock';
 
 describe('PATCH /matches', function () {
   let response: Response;
   beforeEach(function () {
     sinon.restore();
     sinon.stub(jwt, 'verify').callsFake(() => ({ id: 1, role: 'admin' }));
+    sinon.stub(UserSequelizeModel, 'findByPk').resolves(userFromDB as any);
   });
 
   it('/:id should update goals', async function () {
