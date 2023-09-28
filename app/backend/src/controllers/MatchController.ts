@@ -38,4 +38,9 @@ export default class MatchController {
     );
     res.status(statusHttp[status]).json(body);
   }
+
+  async create(req: Request, res: Response) {
+    const { status, body } = await this.matchService.create(req.body);
+    res.status(statusHttp[status]).json(body);
+  }
 }
