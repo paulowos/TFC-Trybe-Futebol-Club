@@ -8,4 +8,7 @@ const router = Router();
 router.get('/home', (req: Request, res: Response) =>
   leaderBoardController.getAllHome(req, res));
 
+router.get('/away', (req: Request, res: Response) =>
+  leaderBoardController.getAllAway(req, res));
+
 export default router;
