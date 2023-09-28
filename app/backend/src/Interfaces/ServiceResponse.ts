@@ -1,4 +1,9 @@
-type Status = 'OK' | 'INTERNAL_ERROR' | 'NOT_FOUND' | 'UNAUTHORIZED';
+type Status =
+  | 'OK'
+  | 'INTERNAL_ERROR'
+  | 'NOT_FOUND'
+  | 'UNAUTHORIZED'
+  | 'CREATED';
 type Message = { message: string };
 
 type ServiceResponse<T> = {
