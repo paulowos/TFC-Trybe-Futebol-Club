@@ -9,4 +9,9 @@ export default class LeaderBoardController {
     const { status, body } = await this.leaderBoardService.getAllHome();
     res.status(statusHttp[status]).json(body);
   }
+
+  async getAllAway(_req: Request, res: Response) {
+    const { status, body } = await this.leaderBoardService.getAllAway();
+    res.status(statusHttp[status]).json(body);
+  }
 }
