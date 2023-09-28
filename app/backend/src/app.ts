@@ -1,6 +1,8 @@
 import * as express from 'express';
 import mainRouter from './routers';
 
+require('express-async-errors');
+
 class App {
   public app: express.Express;
 
@@ -13,6 +15,8 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
 
     this.routers();
+
+    this.app.use(App.errorHandler);
   }
 
   private config(): void {
@@ -32,6 +36,15 @@ class App {
 
   private routers(): void {
     this.app.use(mainRouter);
+  }
+
+  private static errorHandler(
+    _error: express.ErrorRequestHandler,
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction,
+  ) {
+    res.status(500).json({ message: 'Internal error' });
   }
 
   public start(PORT: string | number): void {
