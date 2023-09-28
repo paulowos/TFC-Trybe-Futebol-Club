@@ -1,6 +1,7 @@
 import {
   getAllAwayQuery,
   getAllHomeQuery,
+  getAllTotalQuery,
 } from '../database/queries/leaderBoardQueries';
 import ILeaderBoard from '../Interfaces/LeaderBoard';
 import ILeaderBoardModel from '../Interfaces/LeaderBoardModel';
@@ -18,6 +19,13 @@ export default class LeaderBoardModel implements ILeaderBoardModel {
   async getAllAway(): Promise<ILeaderBoard[]> {
     const [result] = (await this.model.query(
       getAllAwayQuery,
+    )) as ILeaderBoard[][];
+    return result;
+  }
+
+  async getAllTotal(): Promise<ILeaderBoard[]> {
+    const [result] = (await this.model.query(
+      getAllTotalQuery,
     )) as ILeaderBoard[][];
     return result;
   }
