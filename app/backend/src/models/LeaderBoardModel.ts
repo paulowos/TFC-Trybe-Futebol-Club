@@ -3,7 +3,7 @@ import ILeaderBoard from '../Interfaces/LeaderBoard';
 import ILeaderBoardModel from '../Interfaces/LeaderBoardModel';
 import db from '../database/models';
 
-export default class LeaderBoard implements ILeaderBoardModel {
+export default class LeaderBoardModel implements ILeaderBoardModel {
   private model = db;
   async getAllHome(): Promise<ILeaderBoard[]> {
     const result = (await this.model.query(getAllHomeQuery)) as ILeaderBoard[];
