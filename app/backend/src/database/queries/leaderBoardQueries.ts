@@ -167,6 +167,7 @@ const getAllTotalQuery = `
   ORDER BY
     totalPoints DESC,
     totalVictories DESC,
+    goalsBalance DESC,
     goalsFavor DESC
 `;
 
