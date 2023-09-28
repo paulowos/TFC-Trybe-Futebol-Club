@@ -14,4 +14,9 @@ export default class LeaderBoardController {
     const { status, body } = await this.leaderBoardService.getAllAway();
     res.status(statusHttp[status]).json(body);
   }
+
+  async getAllTotal(_req: Request, res: Response) {
+    const { status, body } = await this.leaderBoardService.getAllTotal();
+    res.status(statusHttp[status]).json(body);
+  }
 }
