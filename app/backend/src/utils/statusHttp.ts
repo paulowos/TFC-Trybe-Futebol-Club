@@ -5,6 +5,7 @@ enum statusHttp {
   UNAUTHORIZED = 401,
   BAD_REQUEST = 400,
   CREATED = 201,
+  UNPROCESSABLE_ENTITY = 422,
 }
 
 export default statusHttp;

@@ -3,7 +3,8 @@ type Status =
   | 'INTERNAL_ERROR'
   | 'NOT_FOUND'
   | 'UNAUTHORIZED'
-  | 'CREATED';
+  | 'CREATED'
+  | 'UNPROCESSABLE_ENTITY';
 type Message = { message: string };
 
 type ServiceResponse<T> = {

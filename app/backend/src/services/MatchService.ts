@@ -33,7 +33,22 @@ export default class MatchService {
   }
 
   async create(data: CreationIMatch): Promise<ServiceResponse<IMatch>> {
-    const body = await this.matchModel.create(data);
-    return { status: 'CREATED', body };
+    if (data.homeTeamId === data.awayTeamId) {
+      return {
+        status: 'UNPROCESSABLE_ENTITY',
+        body: {
+          message: 'It is not possible to create a match with two equal teams',
+        },
+      };
+    }
+    try {
+      const body = await this.matchModel.create(data);
+      return { status: 'CREATED', body };
+    } catch (_error) {
+      return {
+        status: 'NOT_FOUND',
+        body: { message: 'There is no team with such id!' },
+      };
+    }
   }
 }
