@@ -24,25 +24,17 @@ const getAllHomeQuery = `
         m.in_progress = false
       GROUP BY
         t.team_name
-      ORDER BY
-        totalPoints DESC,
-        totalVictories DESC,
-        goalsBalance DESC,
-        goalsFavor DESC
     )
   SELECT
-    name,
-    totalPoints,
-    totalGames,
-    totalVictories,
-    totalDraws,
-    totalLosses,
-    goalsFavor,
-    goalsOwn,
-    goalsBalance,
+    *,
     ROUND((totalPoints / (totalGames * 3) * 100), 2) AS efficiency
   FROM
-    cte;
+    cte
+  ORDER BY
+    totalPoints DESC,
+    totalVictories DESC,
+    goalsBalance DESC,
+    goalsFavor DESC;
 `;
 
 const getAllAwayQuery = `
@@ -71,25 +63,17 @@ const getAllAwayQuery = `
         m.in_progress = false
       GROUP BY
         t.team_name
-      ORDER BY
-        totalPoints DESC,
-        totalVictories DESC,
-        goalsBalance DESC,
-        goalsFavor DESC
     )
   SELECT
-    name,
-    totalPoints,
-    totalGames,
-    totalVictories,
-    totalDraws,
-    totalLosses,
-    goalsFavor,
-    goalsOwn,
-    goalsBalance,
+    *,
     ROUND((totalPoints / (totalGames * 3) * 100), 2) AS efficiency
   FROM
-    cte;
+    cte
+  ORDER BY
+    totalPoints DESC,
+    totalVictories DESC,
+    goalsBalance DESC,
+    goalsFavor DESC;
 `;
 
 const getAllTotalQuery = `
@@ -168,7 +152,7 @@ const getAllTotalQuery = `
     totalPoints DESC,
     totalVictories DESC,
     goalsBalance DESC,
-    goalsFavor DESC
+    goalsFavor DESC;
 `;
 
 export { getAllHomeQuery, getAllAwayQuery, getAllTotalQuery };
